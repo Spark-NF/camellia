@@ -40,13 +40,11 @@ let analyze file =
 
 let main () =
 	if Array.length Sys.argv > 1 then
+		let texts = analyze Sys.argv.(1) in
 		begin
-			let texts = analyze Sys.argv.(1) in
-			begin
-				print_endline ("Finished analyzing file.");
-				print_int texts.(0).(0);
-				print_string "\r\n"
-			end
+			print_endline ("Finished analyzing file.");
+			print_int texts.(0).(0);
+			print_string "\r\n"
 		end
 	else
 		failwith "Error: you must provide a file to the command line.";;
