@@ -14,3 +14,4 @@ footer { font-size: 0.8em; text-align: center; margin-top: 30px; }
 .avatar { width:100px; height:100px; margin-right:10px; border: 1px solid #000; border-radius: 15px; box-shadow: 0 0 7px #000; margin-top: 5px; }
 .member { font-size: 1.2em; color: #ddd; display: inline-block; }
 .rank { font-size: 0.9em; font-style: italic; margin: 0 0 10px 14px; display: inline-block; }
+.name { font-variant: small-caps; }
