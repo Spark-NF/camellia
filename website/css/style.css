@@ -1,0 +1,16 @@
+* { margin: 0; padding: 0; }
+body { background: #ccc url('/img/main-bg.png') repeat; padding: 40px; }
+#wrapper { background: #333 url('title-bg.png') repeat; color: #fff; padding: 30px; border: 1px solid #000; border-radius: 20px; box-shadow: 0 0 10px 0 #000; }
+#wrapper a { color: #fff; text-decoration: none; }
+#wrapper a:hover { text-decoration: underline; }
+#wrapper nav { margin-bottom: 60px; }
+#wrapper nav ul { list-style-type: none; }
+#wrapper nav li { float: left; padding: 5px 20px 5px 20px; }
+#wrapper nav li.current { background: #ccc url('/img/main-bg.png') repeat; border: 1px solid #000; border-radius: 10px; color: #000; }
+#wrapper nav li.current a { color: #000; }
+#wrapper nav li.current a:hover { text-decoration: none; }
+footer { font-size: 0.8em; text-align: center; margin-top: 30px; }
+.clear { clear: both; }
+.avatar { width:100px; height:100px; margin-right:10px; border: 1px solid #000; border-radius: 15px; box-shadow: 0 0 7px #000; margin-top: 5px; }
+.member { font-size: 1.2em; color: #ddd; display: inline-block; }
+.rank { font-size: 0.9em; font-style: italic; margin: 0 0 10px 14px; display: inline-block; }
