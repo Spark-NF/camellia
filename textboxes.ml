@@ -1,0 +1,1 @@
+/* The following functions and definitions will be used to detect and display bounding boxes around the text of our image */
