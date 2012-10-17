@@ -89,10 +89,22 @@ let cleanimg imgG imgC w h =
   end
 
 let grey2black img w h moy =
+  let (x,_,_) = Sdlvideo.get_pixel_color img 1 1 in
+  if x > moy then
   for i = 0 to h do
     for j = 0 to w do
       let (x,_,_) = Sdlvideo.get_pixel_color img j i in
-      if x > moy - ((255 - moy)/4*3) then 
+      if x > moy - (moy/7) then 
+	Sdlvideo.put_pixel_color img j i (255,255,255)
+      else 
+	Sdlvideo.put_pixel_color img j i (0,0,0)
+    done
+  done
+  else
+  for i = 0 to h do
+    for j = 0 to w do
+      let (x,_,_) = Sdlvideo.get_pixel_color img j i in
+      if x < moy + ((255-moy)/7) then 
 	Sdlvideo.put_pixel_color img j i (255,255,255)
       else 
 	Sdlvideo.put_pixel_color img j i (0,0,0)
@@ -108,9 +120,6 @@ let binarize arg =
     let _ = image2grey img imgG w h moy in
     let moyenne = (int_of_float (!moy *. 255.)) / (w*h) in
     let imgC = cleanimg imgG img w h in
-    let display = Sdlvideo.set_video_mode w h [`DOUBLEBUF] in
-    let _ = show imgC display in
-    let _ = wait_key () in
     let _ = grey2black imgC w h moyenne in
     imgC
   end
