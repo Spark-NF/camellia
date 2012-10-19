@@ -1,6 +1,6 @@
 * { margin: 0; padding: 0; }
 body { background: #ccc url('/img/main-bg.png') repeat; padding: 40px; }
-#wrapper { background: #333 url('title-bg.png') repeat; color: #fff; padding: 30px; border: 1px solid #000; border-radius: 20px; box-shadow: 0 0 10px 0 #000; }
+#wrapper { background: #333 url('title-bg.png') repeat; color: #fff; padding: 30px; border: 1px solid #000; border-radius: 20px; box-shadow: 0 0 10px #000; }
 #wrapper a { color: #fff; text-decoration: none; }
 #wrapper a:hover { text-decoration: underline; }
 #wrapper nav { margin-bottom: 60px; }
