@@ -1,3 +1,8 @@
+(*Le fichier innitial autosuffisant.
+  Il y a diverses fonction utiles que tu peux mettre dans le fichier principal.
+  Il y a aussi la fonction de binarisation,
+  elle regroupe toutes les actions éffectué.*)
+
 let sdl_init () =
   begin
     Sdl.init [`EVERYTHING];
@@ -30,8 +35,8 @@ let color2grey c =
 
 let image2grey imgRGB imgG w h moy min max =
   begin
-    for i = 0 to h do
-      for j = 0 to w do
+    for i = 0 to h - 1 do
+      for j = 0 to w - 1 do
 	moy:= (!moy +. level (Sdlvideo.get_pixel_color imgRGB j i));
 	    Sdlvideo.put_pixel_color imgG j i 
 	        (color2grey (Sdlvideo.get_pixel_color imgRGB j i));
@@ -45,8 +50,8 @@ let image2grey imgRGB imgG w h moy min max =
 let resize_spec imgG w h moy min max =
   begin
     moy := float_of_int(int_of_float(!moy)- !min)/. float_of_int !max *. 255.;
-    for i = 0 to h do
-      for j = 0 to w do
+    for i = 0 to h - 1 do
+      for j = 0 to w - 1 do
 	let (x,_,_) = (Sdlvideo.get_pixel_color imgG j i) in
 	let y = 
 	  int_of_float((float_of_int( x - !min)/. float_of_int !max)*. 255.)
@@ -58,15 +63,15 @@ let resize_spec imgG w h moy min max =
 
 let clean_pix img w h =
   begin
-    for i = 1 to (h-1) do
-      for j = 1 to (w-1) do
+    for i = 1 to (h-2) do
+      for j = 1 to (w-2) do
 	let (x,_,_) = Sdlvideo.get_pixel_color img j i in
 	if x = 0 then
 	  let (y,_,_) = Sdlvideo.get_pixel_color img (j-1) (i)
 	  and (z,_,_) = Sdlvideo.get_pixel_color img (j+1) (i) 
 	  and (u,_,_) = Sdlvideo.get_pixel_color img (j) (i-1)
 	  and (v,_,_) = Sdlvideo.get_pixel_color img (j) (i+1) in
-	    if (u != 0 && v != 0) || (y != 0 && z != 0) then
+	    if (u != 0 && v != 0) && (y != 0 && z != 0) then
 	      Sdlvideo.put_pixel_color img j i (255,255,255);
       done
     done;
@@ -114,8 +119,8 @@ let adjustG l w h imgG =
 let cleanimg imgG imgC w h =
   begin
     let l = ref [] in
-    for i = 1 to h-1 do
-      for j = 1 to w-1 do
+    for i = 1 to h-2 do
+      for j = 1 to w-2 do
 	Sdlvideo.put_pixel_color imgC j i (adjustG l j i imgG);
       done
     done;
@@ -125,8 +130,8 @@ let cleanimg imgG imgC w h =
 let grey2black img w h moy =
   let (u,_,_) = Sdlvideo.get_pixel_color img 1 1 in
   if u > moy then
-  for i = 0 to h do
-    for j = 0 to w do
+  for i = 0 to h-1 do
+    for j = 0 to w-1 do
       let (x,_,_) = Sdlvideo.get_pixel_color img j i in
       if x > moy - (moy/5) then 
 	Sdlvideo.put_pixel_color img j i (255,255,255)
@@ -135,8 +140,8 @@ let grey2black img w h moy =
     done
   done
   else
-  for i = 0 to h do
-    for j = 0 to w do
+  for i = 0 to h-1 do
+    for j = 0 to w-1 do
       let (x,_,_) = Sdlvideo.get_pixel_color img j i in
       if x < moy + ((255-moy)/5) then 
 	Sdlvideo.put_pixel_color img j i (255,255,255)
@@ -144,6 +149,13 @@ let grey2black img w h moy =
 	Sdlvideo.put_pixel_color img j i (0,0,0)
     done
   done
+
+(*prend l'image ou son addresse en paramètre (modifier la ligne 3 en fonction),
+  récupère la taille de l'image en ligne 4 puis, 
+  innitialise les 3 références indispensables, 
+  avant de faire ce qu'elle a à faire.*)
+
+(*Renvoie l'image binarisé et nettoyé.*)
 
 let binarize arg =
   begin
