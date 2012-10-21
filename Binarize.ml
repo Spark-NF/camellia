@@ -1,7 +1,5 @@
-(*Le fichier innitial autosuffisant.
-  Il y a diverses fonction utiles que tu peux mettre dans le fichier principal.
-  Il y a aussi la fonction de binarisation,
-  elle regroupe toutes les actions éffectué.*)
+(* This is the file that binarizes and cleans the image by deleting the noise *)
+
 
 let get_dims img =
   ((Sdlvideo.surface_info img).Sdlvideo.w, 
@@ -96,8 +94,6 @@ let adjustG l w h imgG =
       | _ -> 0
       in (x,x,x)
   end
-   
-
 
 let cleanimg imgG imgC w h =
   begin
@@ -133,12 +129,7 @@ let grey2black img w h moy =
     done
   done
 
-(*prend l'image ou son addresse en paramètre (modifier la ligne 3 en fonction),
-  récupère la taille de l'image en ligne 4 puis, 
-  innitialise les 3 références indispensables, 
-  avant de faire ce qu'elle a à faire.*)
-
-(*Renvoie l'image binarisé et nettoyé.*)
+(* Returns the binarized image *)
 
 let binarize arg =
   begin
@@ -153,6 +144,6 @@ let binarize arg =
     let _ = resize_spec imgG w h moy min max in
     let _ = grey2black imgG w h moyenne in
     let imgC = clean_pix imgG w h in
-    (*let imgC = cleanimg imgC img w h in*)
+    (* let imgC = cleanimg imgC img w h in *)
     imgC
   end

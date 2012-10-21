@@ -1,4 +1,4 @@
-(* Trucs et choses *)
+(* Definitions *)
 
 let _PIXEL_COUNT = 5 ;;
 let _PI = 3.14159265359 ;;
@@ -9,7 +9,7 @@ let get_dims img =
 
 
 
-(* Détecte l'angle de l'image *)
+(* Detects the angle of the image *)
 
 let get_pixel img x y =
 	if Sdlvideo.get_pixel_color img x y = (0, 0, 0) then 1 else 0 ;;
@@ -75,7 +75,7 @@ let skew img =
 
 
 
-(* Rotate l'image *)
+(* Rotates the image by the previously defined angle *)
 
 let rotate img angle =
 	if angle = 0.0 || classify_float angle = FP_nan then
