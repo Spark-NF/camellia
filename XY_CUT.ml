@@ -55,7 +55,7 @@ let rec x_cut (x1, x2, y1, y2) tmp_y1 order img =
 			x_cut (x1, x2, y1 +1, y2) (-1) order img
 			else (* (x_hist y1 x1 x2 img> w_line_limit) *)
 		(* If black line *)
-			x_cut (x1, x2, y1, y2) y1 order img))
+			x_cut (x1, x2, y1 +1, y2) y1 order img))
 	else (* (tmp_y1 <> -1) *)
 	(* If in black strip *)
 		(if (y1 = y2 + 1) then
@@ -73,7 +73,7 @@ let rec x_cut (x1, x2, y1, y2) tmp_y1 order img =
 				(if (order > 0)
 				then (y_cut (x1, x2, tmp_y1, y1 - 1) (-1) (order - 1) img)
 				else [])
-			):: (x_cut (x1, x2, y1, y2) (-1) order img))
+			):: (x_cut (x1, x2, y1 +1, y2) (-1) order img))
 			else (* (x_hist y1 x1 x2 img > w_line_limit) *)
 		(* If black line *)
 			[]))
