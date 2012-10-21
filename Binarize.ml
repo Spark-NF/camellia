@@ -14,11 +14,11 @@ let color2grey c =
   let x = int_of_float (255. *. level c) in
   (x,x,x)
 
-let image2grey imgRGB imgG w h moy min max =
+let image2grey imgRGB imgG w h med min max =
   begin
     for i = 0 to h - 1 do
       for j = 0 to w - 1 do
-	moy:= (!moy +. level (Sdlvideo.get_pixel_color imgRGB j i));
+	med:= (!med +. level (Sdlvideo.get_pixel_color imgRGB j i));
 	    Sdlvideo.put_pixel_color imgG j i 
 	        (color2grey (Sdlvideo.get_pixel_color imgRGB j i));
 	let (x,_,_) = (Sdlvideo.get_pixel_color imgRGB j i) in
@@ -28,9 +28,9 @@ let image2grey imgRGB imgG w h moy min max =
     done
   end
 
-let resize_spec imgG w h moy min max =
+let resize_spec imgG w h med min max =
   begin
-    moy := float_of_int(int_of_float(!moy)- !min)/. float_of_int !max *. 255.;
+    med := float_of_int(int_of_float(!med)- !min)/. float_of_int !max *. 255.;
     for i = 0 to h - 1 do
       for j = 0 to w - 1 do
 	let (x,_,_) = (Sdlvideo.get_pixel_color imgG j i) in
@@ -106,13 +106,13 @@ let cleanimg imgG imgC w h =
     imgC;
   end
 
-let grey2black img w h moy =
+let grey2black img w h med =
   let (u,_,_) = Sdlvideo.get_pixel_color img 1 1 in
-  if u > moy then
+  if u > med then
   for i = 0 to h-1 do
     for j = 0 to w-1 do
       let (x,_,_) = Sdlvideo.get_pixel_color img j i in
-      if x > moy - (moy/5) then 
+      if x > med - (med/5) then 
 	Sdlvideo.put_pixel_color img j i (255,255,255)
       else 
 	Sdlvideo.put_pixel_color img j i (0,0,0)
@@ -122,7 +122,7 @@ let grey2black img w h moy =
   for i = 0 to h-1 do
     for j = 0 to w-1 do
       let (x,_,_) = Sdlvideo.get_pixel_color img j i in
-      if x < moy + ((255-moy)/5) then 
+      if x < med + ((255-med)/5) then 
 	Sdlvideo.put_pixel_color img j i (255,255,255)
       else 
 	Sdlvideo.put_pixel_color img j i (0,0,0)
@@ -136,13 +136,13 @@ let binarize arg =
     let img = Sdlloader.load_image arg in
     let (w,h) = get_dims img in
     let imgG = Sdlvideo.create_RGB_surface_format img [] w h in
-    let moy = ref 0. 
+    let med = ref 0. 
     and min = ref 0 
     and max = ref 0 in
-    let _ = image2grey img imgG w h moy min max in
-    let moyenne = (int_of_float (!moy *. 255.)) / (w*h) in
-    let _ = resize_spec imgG w h moy min max in
-    let _ = grey2black imgG w h moyenne in
+    let _ = image2grey img imgG w h med min max in
+    let median = (int_of_float (!med *. 255.)) / (w*h) in
+    let _ = resize_spec imgG w h med min max in
+    let _ = grey2black imgG w h median in
     let imgC = clean_pix imgG w h in
     (* let imgC = cleanimg imgC img w h in *)
     imgC

@@ -6,10 +6,10 @@ print_endline "
 ************************
 *                      *
 * Authors:             *
-*   Faure Nicolas      *
-*   Polsinelli Max     *
-*   Trouve Sebastien   *
-*   Urion Alexandre    *
+*   FAURE Nicolas      *
+*   POLSINELLI Max     *
+*   TROUVE Sebastien   *
+*   URION Alexandre    *
 *                      *
 ************************\r\n";;
 
