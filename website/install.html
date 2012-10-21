@@ -7,28 +7,42 @@
 	</head>
 	<body>
 		<div id="wrapper">
-			<header><a href="index.html"><img src="/img/logo.png" alt="" id="logo" /></a></header>
-			<nav>
-				<ul>
-					<li><a href="/index.html">Accueil</a></li>
-					<li><a href="/download.html">Téléchargement</a></li>
-					<li class="current"><a href="/install.html">Installation</a></li>
-					<li class="last"><a href="/team.html">L'équipe</a></li>
-				</ul>
-			</nav>
-			<div class="clear"></div>
+			<div id="header">
+				<header><a href="index.html"><img src="/img/camellia.png" alt="" id="logo" /></a></header>
+				<nav>
+					<ul>
+						<li><a href="/index.html">Accueil</a></li>
+						<li><a href="/download.html">Téléchargement</a></li>
+						<li class="current"><a href="/install.html">Installation</a></li>
+						<li class="last"><a href="/team.html">L'équipe</a></li>
+					</ul>
+				</nav>
+				<div class="clear"></div>
+			</div>
 			<section>
 				<article>
 					<p>
-						Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer a eros lacus, quis cursus sapien. Maecenas neque nisi, pulvinar quis lobortis vel, luctus id erat. Donec pulvinar, risus imperdiet egestas sollicitudin, purus lacus aliquet erat, laoreet consequat nisi massa sed nisi. Nulla dui eros, imperdiet eu bibendum nec, ullamcorper eget ante. Nam lacus lacus, scelerisque quis luctus et, vestibulum in nisi. Quisque non felis lacus. Proin commodo, ligula a pharetra lobortis, orci est accumsan elit, vel bibendum orci neque facilisis magna. Sed hendrerit sem eu purus mattis porta. Suspendisse potenti. Ut vel vehicula est. Nunc interdum gravida diam id mollis. Duis vel feugiat velit. Nulla facilisis leo a erat laoreet commodo. Aenean tempor massa ac ligula rutrum pharetra mollis nulla porta. Ut et blandit ipsum. Nam nec sem mi, nec dictum mi.<br/><br/>
-						Etiam id odio non metus auctor egestas convallis ac tortor. Sed volutpat lectus quis neque ullamcorper gravida. Duis ornare semper erat, vel tristique mi mollis eu. Pellentesque at ante quis ante fermentum sagittis at eu elit. Quisque egestas ligula quis orci semper sagittis. Aliquam id consequat mauris. Nullam molestie dui nec ligula rhoncus quis viverra justo aliquam. Donec in ornare mi.<br/><br/>
-						Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nam ac nisi neque. Proin condimentum, purus sit amet euismod tristique, sapien justo suscipit mi, ac rutrum odio elit id magna. Quisque consectetur eros ut nibh lacinia imperdiet. Cras imperdiet, lorem in ullamcorper mattis, neque massa egestas mauris, non sagittis arcu nisi eget enim. Vivamus tincidunt accumsan justo vel pellentesque. Nulla ac velit in metus egestas volutpat lobortis vel sem. In tempus justo vel tellus gravida eget malesuada nunc consequat. Maecenas ante odio, vulputate ac convallis at, imperdiet sit amet erat. Vivamus vel leo purus, vitae mollis felis. Curabitur convallis, erat ut consequat elementum, lorem justo interdum turpis, ac pellentesque tortor erat nec erat. Mauris consequat nisl quis leo pulvinar volutpat. Maecenas tristique mauris et nulla scelerisque vestibulum. Proin id nisl a magna suscipit euismod eu vel felis. Cras posuere egestas diam eu placerat.<br/><br/>
-						In sodales nibh at erat fermentum malesuada imperdiet dolor tempor. Donec lectus odio, ultricies et dapibus a, iaculis vel neque. Aenean dolor sapien, scelerisque vitae tempus at, suscipit a nunc. Phasellus pharetra, magna nec gravida rhoncus, orci nulla rutrum nisi, condimentum imperdiet metus risus vitae lectus. Vestibulum condimentum, enim at tempor malesuada, tellus justo elementum ligula, at egestas nulla ante eget justo. Nullam imperdiet dui et lorem lobortis iaculis. Suspendisse et elit erat. Donec ut odio at dui rhoncus accumsan. In non justo vel neque sodales facilisis et vitae risus. Maecenas pretium feugiat nunc, dapibus semper eros gravida non. Etiam sit amet ullamcorper lorem. In porttitor magna turpis. Aliquam eleifend feugiat ultrices. Phasellus aliquet ultricies purus, at euismod arcu congue in.<br/><br/>
-						Vestibulum ornare lobortis porttitor. Maecenas lobortis sem vel felis viverra eget mollis urna dictum. Donec cursus vestibulum rhoncus. Nulla ornare felis ac risus aliquet aliquam vitae at nibh. Maecenas eget orci eu nisl sodales cursus quis ac purus. Integer nisi mauris, adipiscing viverra vulputate sit amet, egestas eu nisi. Suspendisse potenti. Quisque eleifend mollis est, vel ornare nisi pulvinar vitae. Pellentesque condimentum orci in mauris ullamcorper condimentum. Sed ornare dignissim metus, eu pulvinar eros venenatis quis. Donec commodo vulputate urna, non tincidunt est placerat et. Sed sagittis ullamcorper dui scelerisque vestibulum. Aliquam viverra lacinia tellus, in venenatis dui tempus ut. 
+						Pour compiler le projet, il vous faut :<br/>
+						- Les sources du projet<br/>
+						- OCaml<br/>
+						- SDL<br/>
+						- OCaml SDL<br/><br/>
+						Ensuite, déplacez-vous dans le dossier où se trouvent les sources, et éxecutez :<br/>
 					</p>
+					<div class="console">
+						tar -xjf faure_n-ocr-s1s1.tar.bz2<br/>
+						cd faure_n-ocr-s1s1<br/>
+						make
+					</div>
+					<p>
+						<br/>Pour utiliser Camellia sur une image "image.png", il faut faire :<br/>
+					</p>
+					<div class="console">
+						./camellia image.png
+					</div>
 				</article>
 			</section>
 		</div>
-		<footer>The Camellia Project est distribué sous license Apache 2.0</footer>
+		<footer>Le projet Camellia est distribué sous <a href="http://www.apache.org/licenses/LICENSE-2.0.html">license Apache 2.0</a></footer>
 	</body>
 </html>
