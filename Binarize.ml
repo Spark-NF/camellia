@@ -1,32 +1,12 @@
-(* This is the file that binarizes and cleans the image by deleting the noise *)
-
+(* Image-related functions *)
 
 let get_dims img =
   ((Sdlvideo.surface_info img).Sdlvideo.w, 
    (Sdlvideo.surface_info img).Sdlvideo.h)
 
-let level = function
-    (r,g,b) -> (0.3 *. float_of_int r +. 
-	       0.59 *. float_of_int g +. 
-	       0.11 *. float_of_int b) /. 255.
 
-let color2grey c = 
-  let x = int_of_float (255. *. level c) in
-  (x,x,x)
 
-let image2grey imgRGB imgG w h med min max =
-  begin
-    for i = 0 to h - 1 do
-      for j = 0 to w - 1 do
-	med:= (!med +. level (Sdlvideo.get_pixel_color imgRGB j i));
-	    Sdlvideo.put_pixel_color imgG j i 
-	        (color2grey (Sdlvideo.get_pixel_color imgRGB j i));
-	let (x,_,_) = (Sdlvideo.get_pixel_color imgRGB j i) in
-	if x < !min then min := x
-        else if x > !max then max := x;
-      done
-    done
-  end
+   
 
 let resize_spec imgG w h med min max =
   begin
@@ -106,6 +86,33 @@ let cleanimg imgG imgC w h =
     imgC;
   end
 
+
+
+(* Black and white functions *)
+
+let level = function
+    (r,g,b) -> (0.3 *. float_of_int r +. 
+	       0.59 *. float_of_int g +. 
+	       0.11 *. float_of_int b) /. 255.
+
+let color2grey c = 
+  let x = int_of_float (255. *. level c) in
+  (x,x,x)
+
+let image2grey imgRGB imgG w h med min max =
+  begin
+    for i = 0 to h - 1 do
+      for j = 0 to w - 1 do
+	med:= (!med +. level (Sdlvideo.get_pixel_color imgRGB j i));
+	    Sdlvideo.put_pixel_color imgG j i 
+	        (color2grey (Sdlvideo.get_pixel_color imgRGB j i));
+	let (x,_,_) = (Sdlvideo.get_pixel_color imgRGB j i) in
+	if x < !min then min := x
+        else if x > !max then max := x;
+      done
+    done
+  end
+
 let grey2black img w h med =
   let (u,_,_) = Sdlvideo.get_pixel_color img 1 1 in
   if u > med then
@@ -128,6 +135,8 @@ let grey2black img w h med =
 	Sdlvideo.put_pixel_color img j i (0,0,0)
     done
   done
+
+
 
 (* Returns the binarized image *)
 

@@ -3,16 +3,20 @@
 let _PIXEL_COUNT = 5 ;;
 let _PI = 3.14159265359 ;;
 
+
+
+(* Image-related functions *)
+
 let get_dims img =
 	((Sdlvideo.surface_info img).Sdlvideo.w,
 	 (Sdlvideo.surface_info img).Sdlvideo.h) ;;
 
+let get_pixel img x y =
+	if Sdlvideo.get_pixel_color img x y = (0, 0, 0) then 1 else 0 ;;
+
 
 
 (* Detects the angle of the image *)
-
-let get_pixel img x y =
-	if Sdlvideo.get_pixel_color img x y = (0, 0, 0) then 1 else 0 ;;
 
 let skew img =
 	let (w, h) = get_dims img in
@@ -75,7 +79,7 @@ let skew img =
 
 
 
-(* Rotates the image by the previously defined angle *)
+(* Rotates the image by a certain angle in radians *)
 
 let rotate img angle =
 	if angle = 0.0 || classify_float angle = FP_nan then

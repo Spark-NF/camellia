@@ -13,22 +13,29 @@ print_endline "
 *                      *
 ************************\r\n";;
 
+
+
 let _PI = 3.14159265359 ;;
+
 let sdl_init () =
 	begin
 		Sdl.init [`EVERYTHING];
 		Sdlevent.enable_events Sdlevent.all_events_mask;
 	end ;;
+
 let show img dst =
 	let d = Sdlvideo.display_format img in
 	Sdlvideo.blit_surface d dst ();
 	Sdlvideo.flip dst ;;
+
 let rec wait_key () =
   let e = Sdlevent.wait_event () in
     match e with
     Sdlevent.KEYDOWN _ -> ()
       | _ -> wait_key () ;;
 let abs a = if a > 0.0 then a else -. a ;;
+
+
 
 let analyze file =
 	begin
@@ -50,6 +57,8 @@ let analyze file =
 		end
 	end;;
 
+	
+	
 let main () =
 	if Array.length Sys.argv > 1 then
 		begin
