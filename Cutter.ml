@@ -75,7 +75,6 @@ let rec x_cut (x1, x2, y1, y2) tmp_y1 order img =
 (* Draws the 4 lines  *)
 let draw_rect (x1, x2, y1, y2) img =
 	begin
-		print_endline ("draw_rect (("^string_of_int x1^", "^string_of_int y1^"), ("^string_of_int x2^", "^string_of_int y2^"))");
 		for i = x1 to x2 do
 			begin
 				Sdlvideo.put_pixel_color img i y1 (255, 0, 0);
