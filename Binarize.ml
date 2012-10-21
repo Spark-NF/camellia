@@ -1,13 +1,3 @@
-(* Image-related functions *)
-
-let get_dims img =
-  ((Sdlvideo.surface_info img).Sdlvideo.w, 
-   (Sdlvideo.surface_info img).Sdlvideo.h)
-
-
-
-   
-
 let resize_spec imgG w h med min max =
   begin
     med := float_of_int(int_of_float(!med)- !min)/. float_of_int !max *. 255.;
@@ -143,7 +133,7 @@ let grey2black img w h med =
 let binarize arg =
   begin
     let img = Sdlloader.load_image arg in
-    let (w,h) = get_dims img in
+    let (w,h) = Sdlt.get_dims img in
     let imgG = Sdlvideo.create_RGB_surface_format img [] w h in
     let med = ref 0. 
     and min = ref 0 

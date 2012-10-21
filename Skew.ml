@@ -1,25 +1,13 @@
 (* Definitions *)
 
 let _PIXEL_COUNT = 5 ;;
-let _PI = 3.14159265359 ;;
-
-
-
-(* Image-related functions *)
-
-let get_dims img =
-	((Sdlvideo.surface_info img).Sdlvideo.w,
-	 (Sdlvideo.surface_info img).Sdlvideo.h) ;;
-
-let get_pixel img x y =
-	if Sdlvideo.get_pixel_color img x y = (0, 0, 0) then 1 else 0 ;;
 
 
 
 (* Detects the angle of the image *)
 
 let skew img =
-	let (w, h) = get_dims img in
+	let (w, h) = Sdlt.get_dims img in
 	let first_left = ref (-1, -1) in
 	let first_top = ref (-1, -1) in
 	begin
@@ -28,7 +16,7 @@ let skew img =
 			let temp = ref 0 in
 			let first_pixel = ref (-1, -1) in
 			for y = 0 to h-1 do
-				temp := !temp + (get_pixel img !x y);
+				temp := !temp + (Sdlt.get_pixel img !x y);
 				if !temp > 0 && !first_pixel = (-1, -1) then
 					first_pixel := (!x, y);
 				if !temp >= _PIXEL_COUNT && !first_left = (-1, -1) then
@@ -45,7 +33,7 @@ let skew img =
 			let temp = ref 0 in
 			let first_pixel = ref (-1, -1) in
 			for x = 0 to w-1 do
-				temp := !temp + (get_pixel img x !y);
+				temp := !temp + (Sdlt.get_pixel img x !y);
 				if !temp > 0 && !first_pixel = (-1, -1) then
 					first_pixel := (x, !y);
 				if !temp >= _PIXEL_COUNT && !first_top = (-1, -1) then
@@ -85,7 +73,7 @@ let rotate img angle =
 	if angle = 0.0 || classify_float angle = FP_nan then
 		img
 	else
-		let (width, height) = get_dims img in
+		let (width, height) = Sdlt.get_dims img in
 		let x_m = width / 2 and y_m = height / 2 in
 		let x_d = ref 0 and y_d = ref 0 in
 		let dest = Sdlvideo.create_RGB_surface_format img [] width height in

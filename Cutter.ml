@@ -1,8 +1,3 @@
-(* Returns the image size *)
-let get_dims img =
-	((Sdlvideo.surface_info img).Sdlvideo.w,
-	 (Sdlvideo.surface_info img).Sdlvideo.h) ;;
-
 (* Returns a boolean equals to true if the pixel is black *)
 let is_pixel_black x y img =
 	Sdlvideo.get_pixel_color img x y = (0, 0, 0) ;;
@@ -25,7 +20,7 @@ type quadra_tree =
 
 (* Returns the limit under which we can consider the line being empty *)
 let w_line_limit img =
-	let (w, h) = get_dims img in
+	let (w, h) = Sdlt.get_dims img in
 	(w / 100) ;;
 
 let y_cut (x1, x2, y1, y2) tmp_y1 order img =
@@ -102,7 +97,7 @@ let rec draw_rects tree_list img =
 
 (* Entry point *)
 let xy_cut img =
-	let (w, h) = get_dims img in
+	let (w, h) = Sdlt.get_dims img in
 	let order = 1 in
 	let cuts = x_cut (0, w, 0, h) (-1) order img in
 	begin
