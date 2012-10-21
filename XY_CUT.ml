@@ -10,8 +10,8 @@ let is_pixel_black x y img =
 
 (* Returns the nb of black pixels in the line between the two x bounds *)
 let rec x_hist y x1 x2 img = if (x1 = x2) then 0
-	else(if (is_pixel_black x y img) then 1 else 0)
-		+ (x_hist y (x + 1) x2 img)
+	else(if (is_pixel_black x1 y img) then 1 else 0)
+		+ (x_hist y (x1 + 1) x2 img)
 ;;
 
 (* Returns the nb of black pixels in the column between the two y bounds *)
@@ -24,7 +24,7 @@ let rec y_hist x y1 y2 img = match y1 with
 (* Type quadra_tree *)
 type quadra_tree =
 	| Empty
-	| Node of int * int * int * int * quadra_tree list
+	| Node of int * int * int * int * (quadra_tree list)
 ;;
 
 (* Returns the limit under which we can consider the line being empty *)
@@ -34,7 +34,7 @@ let w_line_limit =
 ;;
 
 let y_cut (x1, x2, y1, y2) tmp_y1 order img =
-	img
+	[]
 ;;
 
 (*
@@ -60,16 +60,16 @@ let rec x_cut (x1, x2, y1, y2) tmp_y1 order img =
 	(* If in black strip *)
 		(if (y1 = y2 + 1) then
 		(* If out of bounds *)
-			((
-				(x1, x2, tmp_y1, y1 - 1),
+			[
+				Node(x1, x2, tmp_y1, y1 - 1,
 				(if (order > 0)
 				then (y_cut (x1, x2, tmp_y1, y1 - 1) (-1) (order - 1) img)
-				else [])
-			):: [])
+				else []))
+			]
 		else (if (x_hist y1 x1 x2 img < w_line_limit) then
 		(* If white line *)
-			((
-				(x1, x2, tmp_y1, y1 - 1),
+			(Node(
+				x1, x2, tmp_y1, y1 - 1,
 				(if (order > 0)
 				then (y_cut (x1, x2, tmp_y1, y1 - 1) (-1) (order - 1) img)
 				else [])
@@ -81,7 +81,7 @@ let rec x_cut (x1, x2, y1, y2) tmp_y1 order img =
 
 (* Changes the pixel color *)
 let change_pixel_color x y color img =
-	Sdlvideo.set_pixel_color img x y color
+	Sdlvideo.put_pixel_color img x y color
 ;;
 
 (* Draws the 4 lines  *)
@@ -108,19 +108,16 @@ let draw_rect (x1, x2, y1, y2) img = img;;
 
 (* Draw the rectangles around each bounds *)
 let rec draw_rects tree_list img = 
-	if (tree_list <> []) then
-		(let (bounds, tree_list1) :: tree_list2 = tree_list in
-		begin
-			let img = draw_rect bounds img in
-			let img = draw_rects tree_list1 img in
-			draw_rects tree_list2 img;
-		end)
-	else (img)
-;;
+	match tree_list with
+		  Node(x1, x2, y1, y2, tree_list1) :: tree_list2 -> (begin
+				let img = draw_rect (x1, x2, y1, y2) img in
+				let img = draw_rects tree_list1 img in
+				draw_rects tree_list2 img;
+			end)
+		| _ -> img ;;
 
 (* Entry point *)
 let xy_cut img =
 	let (w, h) = img_size in
 	let order = 1 in
-	draw_rects [(x_cut (0, w, 0, h) (-1) order img)] img
-;;
+	draw_rects (x_cut (0, w, 0, h) (-1) order img) img 
