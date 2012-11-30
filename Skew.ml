@@ -51,11 +51,11 @@ let skew img =
 			let dx = float_of_int (x2 - x1) in
 			let dy = float_of_int (y2 - y1) in
 			begin
-				print_endline ("Found text's upper bounds ((\
+				(*print_endline ("Found text's upper bounds ((\
 " ^ (string_of_int x1) ^ ", \
 " ^ (string_of_int y1) ^ "), (\
 " ^ (string_of_int x2) ^ ", \
-" ^ (string_of_int y2) ^ "))");
+" ^ (string_of_int y2) ^ "))");*)
 				if dx = 0.0 then
 					0.0
 				else

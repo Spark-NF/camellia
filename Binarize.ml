@@ -7,7 +7,7 @@ let resize_spec imgG w h med min max =
 	let y = 
 	  int_of_float((float_of_int( x - !min)/. float_of_int !max)*. 255.)
 	  in
-	Sdlvideo.put_pixel_color imgG j i (y,y,y);
+		Sdlvideo.put_pixel_color imgG j i (y,y,y);
       done
     done
   end
