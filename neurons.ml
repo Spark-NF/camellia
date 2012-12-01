@@ -25,7 +25,8 @@ let rec create_list boxes = match boxes with
 		(create_pattern (x2-x1) (y2-y1))::(create_list l)
 	
 let matching pat1 pat2 =
-	(* compares two matrices, returns an accuracy value and *)
+	(* associates boxes from XY-cut operation to letter by filling letters with 0 and 1
+	and compares two matrices, returns an accuracy value and *)
 	
 	**** FIX ME ****
 	
