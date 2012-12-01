@@ -3,7 +3,6 @@
 let _PIXEL_COUNT = 5 ;;
 
 
-
 (* Detects the angle of the image *)
 
 let skew img =
@@ -64,7 +63,6 @@ let skew img =
 		else
 			failwith "could not find image's boundaries for angle detection"
 	end ;;
-
 
 
 (* Rotates the image by a certain angle in radians *)

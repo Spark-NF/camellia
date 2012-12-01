@@ -28,8 +28,8 @@ let y_cut (x1, x2, y1, y2) tmp_y1 order img =
 
 (*
 Returns the tree with the following caracteristics :
- - It's key is a quadruplet (x1, x2, y1, y2) representing the box bounds
- - It's sons are boxes formed by horizontal or vertical cuts in the parent box
+ - Its key is a quadruplet (x1, x2, y1, y2) representing the box bounds
+ - Its sons are boxes formed by horizontal or vertical cuts in the parent box
  - The order (order >= 1) represents the depth of calculation.
 	Put order to (-1) for to calculate until no separation is longer possible.
 *)
