@@ -70,13 +70,35 @@ let cleanimg imgG imgC w h =
     let l = ref [] in
     for i = 1 to h-2 do
       for j = 1 to w-2 do
-	Sdlvideo.put_pixel_color imgC j i (adjustG l j i imgG);
+	let (x,_,_) = Sdlvideo.get_pixel_color imgG j i in
+        if x > 50 && x < 200 then
+	  Sdlvideo.put_pixel_color imgC j i (x,x,x)
+	else
+	  Sdlvideo.put_pixel_color imgC j i (adjustG l j i imgG);
       done
     done;
     imgC;
   end
 
-
+let convolution imgG imgC w h =
+  begin  
+    let convo = ref 0 in
+    for i = 1 to h-2 do
+      for j = 1 to w-2 do
+	convo := 0;
+	for g = i-1 to i+1 do
+	  for h = j-1 to j+1 do
+	    let (x,_,_) = Sdlvideo.get_pixel_color imgG h g in
+	    match ((g-i),(h-j)) with
+	    |(0,0) -> convo := !convo + (20*x)
+	    |(0,_)|(_,0) -> convo := !convo + (5*x)
+	    |_ -> convo := !convo + (2*x)
+	  done
+	done;
+	  Sdlvideo.put_pixel_color imgC j i (!convo / 48,!convo / 48,!convo /48)
+      done
+    done;
+    imgC
 
 (* Black and white functions *)
 
@@ -141,8 +163,9 @@ let binarize arg =
     let _ = image2grey img imgG w h med min max in
     let median = (int_of_float (!med *. 255.)) / (w*h) in
     let _ = resize_spec imgG w h med min max in
-    let _ = grey2black imgG w h median in
-    let imgC = clean_pix imgG w h in
-    (* let imgC = cleanimg imgC img w h in *)
+    (*let imgC = clean_pix imgG w h in*)
+    (*let imgC = cleanimg imgG img w h in*)
+    let imgC = convolution imgG img w h in
+    let _ = grey2black imgC w h median in
     imgC
   end
