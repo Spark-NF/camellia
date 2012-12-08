@@ -84,12 +84,12 @@ let rotate img angle =
 			for y_s = 0 to height do
 				for x_s = 0 to width do
 					begin
-						y_d :=	int_of_float (((float_of_int (y_s - y_m)) *. (cos angle)) -.
-									((float_of_int (x_s - x_m)) *. (sin angle))) + y_m;
-						x_d :=	int_of_float (((float_of_int (y_s - y_m)) *. (sin angle)) +.
-									((float_of_int (x_s - x_m)) *. (cos angle))) + x_m;
+						y_d :=	int_of_float (((float_of_int (y_s - y_m)) *. (cos (-. angle))) -.
+									((float_of_int (x_s - x_m)) *. (sin (- .angle)))) + y_m;
+						x_d :=	int_of_float (((float_of_int (y_s - y_m)) *. (sin (-. angle))) +.
+									((float_of_int (x_s - x_m)) *. (cos (-. angle))) + x_m;
 						if (!y_d < height) && (!y_d >= 0) && (!x_d < width) && (!x_d >= 0) then
-							Sdlvideo.put_pixel_color dest !x_d !y_d (Sdlvideo.get_pixel_color img x_s y_s);
+							Sdlvideo.put_pixel_color dest x_s y_s (Sdlvideo.get_pixel_color img !x_d !y_d);
 					end
 				done
 			done;
