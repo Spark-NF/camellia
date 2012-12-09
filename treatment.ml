@@ -3,7 +3,7 @@ type quadra_tree =
 	| Empty
 	| Node of int * int * int * int * (quadra_tree list) ;;
 
-(* Convertit un Sdlvideo.rect en histogramme de lettre *)
+(* Convertit un Sdlvideo.rect en histogramme *)
 let is_pixel_black x y img =
 	if (Sdlvideo.get_pixel_color img x y = (0, 0, 0)) then 1 else 0;;
 let rect_to_hist img =
@@ -15,19 +15,32 @@ let rect_to_hist img =
 			hist;
 		end;;
 			
-(* Associe l'histogramme à un caractère *)
-let hist_to_char hist dico =
-	let accuracy = ref 2 in(* marge d'erreur de l'histogramme *)
-	let rec compare_hist_letter current_hist letter_hist(* du dico *) =
-		 match current_hist with
-			| []     -> failwith "No letter to match w/ database"
-			| e1::l1 -> match letter_hist with
-				| []     -> failwith "No database to match w/ letter"
-				| e2::l2 -> if (e1 <= e2+accuracy) & (e1 >= e2-accuracy) then
-					compare_hist_letter l1 l2 (* car la première ligne match *)
-							else (* Aller à la prochaine lettre du dico *)
-								(**** FIX ME PLEASE ****) in
-	compare_hist_letter hist (* Première lettre du dico *) (**** FIX ME PLEASE ****);;
+(* Compare deux histogrammes *)
+let rec compare_hist_letter accuracy hist letter =
+	 match hist with
+		| [] -> true
+		| e1::l1 -> match letter with
+			| [] -> true
+			| e2::l2 ->
+				if (e1 <= e2+accuracy) && (e1 >= e2-accuracy) then
+					compare_hist_letter accuracy l1 l2
+				else
+					false ;;
+
+(* Cherche un histogramme dans une liste de paires (lettre, histogramme) *)
+let find_hist_letter accuracy x = function
+	| [] -> '_'
+	| (letter_char, letter_hist)::l ->
+		if compare_hist_letter accuracy x letter_hist then
+			letter_char
+		else
+			find_hist_letter accuracy x l ;;
+
+let rect_to_char rect w h dico =
+	let hist = rect_to_hist rect in
+	let accuracy = ref 2 in (* marge d'erreur de l'histogramme *)
+	let format = if (float_of_int h) > (float_of_int h) then "high" else "small" in
+	find_hist_letter accuracy hist dico[format] ;;
 
 (* Convertit une liste d'arbres en liste récursive de listes de caractères *)
 let rec_build_mat dico l = function
@@ -43,18 +56,16 @@ let build_mat dico l = function
 		let letter = Sdlvideo.rect x1 x2 y1 y2 in
 		begin
 			Sdlvideo.save_BMP letter string_of_int(!nb <- nb + 1);
-			(matrix_to_char letter dico) :: l;
+			(rect_to_char letter dico (x2-x1) (y2-y1)) :: l;
 		end
 	| Node(_, _, _, _, tree_list) -> rec_build_mat dico l tree_list
 	| Empty -> ();;
 
-(* Renvoie récursivement une liste (lignes du paragraphe) de listes (mots de la ligne)
-de listes (lettres du mots) *)
+(* Renvoie récursivement une liste de listes des caractères de l'arbre *)
 let text_mat tree =
 	let lines = [] in
 	let dico = Hashtbl.create 2 in
-	let dico_high = Hashtbl.create 52 
-	and dico_small = Hashtbl.create 52 in
+	let dico_high = [] and dico_small = [] in
 	begin
 		Hashtbl.add dico "high" dico_high;
 		Hashtbl.add dico "small" dico_small;
