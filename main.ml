@@ -34,7 +34,6 @@ let result_image =
 
 (* OCR *)
 let analyze_file file =
-	(*print_endline ("Analyzing file \"" ^ file ^ "\"");*)
 	let img = Binarize.binarize file in
 	let angle = Skew.skew img in
 	let angle2 =
@@ -46,8 +45,6 @@ let analyze_file file =
 			angle in
 	let img = Skew.rotate img angle2 in
 	begin
-		(*print_endline ("Found angle \"" ^ (string_of_float angle) ^ "\"");
-		print_endline ("Rotating image by \"" ^ (string_of_float angle2) ^ "\"");*)
 		let final_result = Cutter.xy_cut img in
 		begin
 			Sdlvideo.save_BMP final_result "~tmp.bmp";
