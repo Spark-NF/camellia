@@ -99,6 +99,7 @@ let convolution imgG imgC w h =
       done
     done;
     imgC
+  end ;;
 
 (* Black and white functions *)
 

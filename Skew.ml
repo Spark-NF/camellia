@@ -85,7 +85,7 @@ let test a =
 let rot img  =
   let image = ref img in
   let n = ref 0. in
-  let (w, h) = get_dims !image in
+  let (w, h) = Sdlt.get_dims !image in
   let size = ref 0 in
   begin
     if w < h then
