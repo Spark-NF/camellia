@@ -48,12 +48,12 @@ let build_mat dico l = function
 	| Node(x1, x2, y1, y2, []) ->
 		let letter = Sdlvideo.rect x1 x2 y1 y2 in
 		begin
-			Sdlvideo.save_BMP letter string_of_int(!nb <- nb + 1);
+			(* Sdlvideo.save_BMP letter string_of_int(nb := !nb + 1); *)
 			(rect_to_char letter dico (x2-x1) (y2-y1)) :: l;
 		end
 	| Node(_, _, _, _, tree_list) -> rec_build_mat dico l tree_list
 	| Empty -> ();;
-	
+
 (* Convertit une liste d'arbres en liste récursive de listes de caractères *)
 let rec rec_build_mat dico l = function
 	| [] -> []
@@ -72,7 +72,6 @@ let text_mat tree =
 		Hashtbl.add dico "small" dico_small;
 		build_mat dico lines tree;
 	end;;
-
 
 
 			(* METHODE DE ZERNICKE *)
