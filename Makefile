@@ -1,8 +1,8 @@
 ####################
 
-OCAML		:= ocamlopt
+OCAML				:= ocamlopt
 OCAMLFLAGS	:= -I +sdl -I +lablgtk2 -I +threads
-OCAMLLD		:= bigarray.cmxa sdl.cmxa sdlloader.cmxa lablgtk.cmxa unix.cmxa threads.cmxa
+OCAMLLD			:= bigarray.cmxa sdl.cmxa sdlloader.cmxa lablgtk.cmxa unix.cmxa threads.cmxa
 
 ####################
 
@@ -12,6 +12,7 @@ SOURCES		:= \
 	Binarize.ml \
 	Skew.ml \
 	Cutter.ml \
+	Treatment.ml \
 	main.ml
 
 ####################

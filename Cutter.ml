@@ -317,6 +317,5 @@ let xy_cut img =
 	let order = 5 in
 	let cuts_tree = Node(0, w, 0, h, x_cut (0, w, 0, h) (-1) order img) in
 	let cuts_tree = it_tree (separate_xy, (function x -> x)) cuts_tree in
-	let cuts_tree = it_tree (crop_borders, del_son) cuts_tree in
-	draw_rects [cuts_tree] img (100, 100, 100);
+	it_tree (crop_borders, del_son) cuts_tree
 ;;

@@ -46,6 +46,7 @@ let analyze_file file =
 	let img = Skew.rotate img angle2 in
 	begin
 		let final_result = Cutter.xy_cut img in
+		let final_image = Cutter.draw_rects [final_result] img (100, 100, 100) in
 		begin
 			Sdlvideo.save_BMP final_result "~tmp.bmp";
 			result_image#set_file "~tmp.bmp"
