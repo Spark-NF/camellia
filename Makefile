@@ -8,6 +8,7 @@ OCAMLLD			:= bigarray.cmxa sdl.cmxa sdlloader.cmxa lablgtk.cmxa unix.cmxa thread
 
 OUTPUT		:= camellia
 SOURCES		:= \
+	File.ml \
 	Sdlt.ml \
 	Binarize.ml \
 	Skew.ml \

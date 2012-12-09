@@ -47,7 +47,7 @@ let rec x_cut (x1, x2, y1, y2) tmp_y1 order img =
 		(* If out of bounds *)
 			[
 				Node(x1, x2, tmp_y1, y1 - 1,
-				(if (order > 0)
+				(if (order != 0)
 				then (y_cut (x1, x2, tmp_y1, y1 - 1) (-1) (order - 1) img)
 				else []))
 			]
@@ -55,7 +55,7 @@ let rec x_cut (x1, x2, y1, y2) tmp_y1 order img =
 		(* If white line *)
 			(Node(
 				x1, x2, tmp_y1, y1 - 1,
-				(if (order > 0)
+				(if (order != 0)
 				then (y_cut (x1, x2, tmp_y1, y1 - 1) (-1) (order - 1) img)
 				else [])
 			):: (x_cut (x1, x2, y1 +1, y2) (-1) order img))
@@ -82,7 +82,7 @@ y_cut (x1, x2, y1, y2) tmp_x1 order img =
 		(* If out of bounds *)
 			[
 				Node(tmp_x1, x1 -1, y1, y2,
-				(if (order > 0)
+				(if (order != 0)
 				then (x_cut (tmp_x1, x1 -1, y1, y2) (-1) (order -1) img)
 				else []))
 			]
@@ -90,7 +90,7 @@ y_cut (x1, x2, y1, y2) tmp_x1 order img =
 		(* If white column *)
 			(Node(
 				tmp_x1, x1 -1, y1, y2,
-				(if (order > 0)
+				(if (order != 0)
 				then (x_cut (tmp_x1, x1 -1, y1, y2) (-1) (order - 1) img)
 				else [])
 			):: (y_cut (x1 +1, x2, y1, y2) (-1) order img))
@@ -306,13 +306,39 @@ let rec draw_leaf_rects tree_list img =
 		| _ -> img
 ;;
 
+let rec draw_rc nodes img deep =
+	let color = match deep with
+		| 0 -> (255, 0, 0)
+		| 1 -> (0, 255, 0)
+		| 2 -> (0, 0, 255)
+		| 3 -> (0, 255, 255)
+		| 4 -> (255, 255, 0)
+		| _ -> (255, 0, 255) in
+	match nodes with
+		| [] -> img
+		| e::l -> let img = draw_rc l img deep in
+			match e with
+				| Node(x1, x2, y1, y2, tree_list) ->
+					let img = draw_rect (x1, x2, y1, y2) img color in
+					draw_rc tree_list img (deep+1)
+				| _ -> img ;;
+
 
 (* Entry point *)
 let xy_cut img =
 	let (w, h) = Sdlt.get_dims img in
+<<<<<<< .mine
+	let order = 50 in
+=======
 	let order = 1 in
+>>>>>>> .r79
 	let cuts_tree = Node(0, w, 0, h, x_cut (0, w, 0, h) (-1) order img) in
 	let cuts_tree = it_tree (separate_xy, (function x -> x)) cuts_tree in
+<<<<<<< .mine
+	let cuts_tree = it_tree (crop_borders, del_son) cuts_tree in
+	draw_rc [cuts_tree] img 0;
+=======
 	let cuts_tree = it_tree (crop_borders, del_son) cuts_tree in
 	draw_rects [cuts_tree] img (100, 100, 100);
+>>>>>>> .r79
 ;;

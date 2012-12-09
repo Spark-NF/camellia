@@ -7,16 +7,6 @@ let may f x =
 	match x with
 		| None -> ()
 		| Some x -> let _ = f x in ()
-let write_to_file txt filename =
-	try
-		let cout = open_out filename in
-		let co = Format.formatter_of_out_channel cout in
-		begin
-			Format.fprintf co "%s\n" txt;
-			close_out cout
-		end
-	with Sys_error _ as e ->
-		Format.printf "Can't open \"%s\": %s\n" filename (Printexc.to_string e);
 
 (* Main window *)
 let window =
@@ -52,7 +42,7 @@ let analyze_file file =
 		let text_list = Treatment.text_mat final_result in
 		let text = Treatment.text_list_to_text text_list in
 		begin
-			write_to_file text "result.txt";
+			File.write text "result.txt";
 			print_string text;
 			Sdlvideo.save_BMP final_result "~tmp.bmp";
 			result_image#set_file "~tmp.bmp"
