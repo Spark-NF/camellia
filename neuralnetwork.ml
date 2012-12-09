@@ -8,15 +8,15 @@ class letter =
 	object
 		val mutable x
 		val mutable y
-		val mat = Hashtbl.create x
+		val mat = Hashtbl.create n
 		method get_x = x
 		method get_y = y
 		method get_mat = mat
 		(* NEW TYPE NEEDED TO CREATE A BIDIMENSIONAL MATRIX BELOW *)
 		(*
 		method rec create_pattern hashtab x y =
-				for i <- 0 to x do
-				for j <- 0 to y do
+				for i = 0 to x do
+				for j = 0 to y do
 				Hashtabl.add hashtab i j
 	end
 	*)
@@ -31,8 +31,8 @@ let rec create_list boxes = match boxes with
 *)
 
 
-(* associates boxes from XY-cut operation to letter by filling letters with 0 and 1
-	and compares two matrices, returns an accuracy value and *)
+(* associates boxes from XY-cut operation to letter by filling letters with 
+0 and 1 and compares two matrices, returns an accuracy value and *)
 let matching pat1 pat2 =
 	(**** FIX ME ****)
 	
@@ -44,4 +44,18 @@ let first_try pattern matching_list =
 		[] -> failwith "Internal error : no database for matching"
 	| e::l -> matching pattern e;
 			first_try pattern l
-	
+
+(* this function returns the number of black pixels in a hashtab *)
+(* 
+let counter hsh =
+	let iter = ref 0 in
+		for i = Hashtbl.length hsh1 downto 0 do
+			Hashtbl.iter(fun i -> iter := !iter + i) hsh;
+*)
+			
+(* hsh1 is the binary matrix of the current letter.
+hsh2 is the binary matrix of the letter taken from the database.
+this function compares the number of black pixels in each line of the
+two matrices *)
+let hshtb_comp hsh1 hsh2 =
+	(**** FIX ME ****)
