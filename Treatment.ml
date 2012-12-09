@@ -38,7 +38,7 @@ let find_hist_letter accuracy x = function
 
 let rect_to_char rect w h dico =
 	let hist = rect_to_hist rect in
-	let accuracy = ref 2 in (* marge d'erreur de l'histogramme *)
+	let accuracy = ref 1 in (* marge d'erreur de l'histogramme *)
 	let format = if (float_of_int h) > (float_of_int h) then "high" else "small" in
 	find_hist_letter accuracy hist dico[format] ;;
 
@@ -71,3 +71,36 @@ let text_mat tree =
 		Hashtbl.add dico "small" dico_small;
 		build_mat dico lines tree;
 	end ;;
+
+	
+	
+			(* METHODE DE ZERNICKE *)
+
+			
+(* Implémentation des moments géométriques (en coordonnées cartésiennes)
+Prend en paramètre un Sdlvideo.rect et renvoye une liste de moments *)
+let geo_mmt img =
+	let counter_x = ref 1 and counter_y = ref 1 in
+	let moments = ref [] and (w, h) = ref (Sdlt.get_dims img) in
+		let rec return_mmt img (w, h) = match (w, h) with
+			| (1, 1) | (0, 0) 	-> moments
+			| (y, x) when y = 1 -> begin
+									counter_x = !counter_x + 1;
+									moments := !moments::((Power x counter_x) = (Power y counter_y));
+									return_mmt img y (x-1);
+									end
+			| (y, x)			-> begin
+									counter_x = !counter_x + 1;
+									counter_y = !counter_y + 1;
+									moments := !moments::((Power x counter_x) = (Power y counter_y));
+									return_mmt img (y-1) (x-1);
+									end;;
+
+
+
+
+
+
+
+
+
