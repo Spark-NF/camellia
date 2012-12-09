@@ -314,7 +314,7 @@ let rec draw_leaf_rects tree_list img =
 (* Entry point *)
 let xy_cut img =
 	let (w, h) = Sdlt.get_dims img in
-	let order = 1 in
+	let order = 5 in
 	let cuts_tree = Node(0, w, 0, h, x_cut (0, w, 0, h) (-1) order img) in
 	let cuts_tree = it_tree (separate_xy, (function x -> x)) cuts_tree in
 	let cuts_tree = it_tree (crop_borders, del_son) cuts_tree in
