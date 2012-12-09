@@ -19,12 +19,8 @@ type quadra_tree =
 	| Node of int * int * int * int * (quadra_tree list) ;;
 
 (* Returns the limit under which we can consider the line being empty *)
-let w_line_limit img =
-	let (w, h) = Sdlt.get_dims img in
-	(w / 100) ;;
-let w_column_limit img =
-	let (w, h) = Sdlt.get_dims img in
-	(h / 100) ;;
+let w_line_limit = 1 ;;
+let w_column_limit = 1 ;;
 
 (*
 Returns the tree with the following caracteristics :
@@ -39,7 +35,7 @@ let rec x_cut (x1, x2, y1, y2) tmp_y1 order img =
 		(if (y1 = y2 + 1) then
 		(* If out of bounds*)
 			[]
-		else (if ((x_hist y1 x1 x2 img) < w_line_limit img) then
+		else (if ((x_hist y1 x1 x2 img) < w_line_limit) then
 		(* If white line *)
 			x_cut (x1, x2, y1 +1, y2) (-1) order img
 			else (* (x_hist y1 x1 x2 img> w_line_limit) *)
@@ -55,7 +51,7 @@ let rec x_cut (x1, x2, y1, y2) tmp_y1 order img =
 				then (y_cut (x1, x2, tmp_y1, y1 - 1) (-1) (order - 1) img)
 				else []))
 			]
-		else (if (x_hist y1 x1 x2 img < w_line_limit img) then
+		else (if (x_hist y1 x1 x2 img < w_line_limit) then
 		(* If white line *)
 			(Node(
 				x1, x2, tmp_y1, y1 - 1,
@@ -74,7 +70,7 @@ y_cut (x1, x2, y1, y2) tmp_x1 order img =
 		(if (x1 = x2 +1) then
 		(* If out of bounds*)
 			[]
-		else (if ((y_hist x1 y1 y2 img) < w_column_limit img) then
+		else (if ((y_hist x1 y1 y2 img) < w_column_limit) then
 		(* If white column *)
 			y_cut (x1 +1, x2, y1, y2) (-1) order img
 			else (* (y_hist x1 y1 y2 img> w_column_limit) *)
@@ -90,7 +86,7 @@ y_cut (x1, x2, y1, y2) tmp_x1 order img =
 				then (x_cut (tmp_x1, x1 -1, y1, y2) (-1) (order -1) img)
 				else []))
 			]
-		else (if (y_hist x1 y1 y2 img < w_column_limit img) then
+		else (if (y_hist x1 y1 y2 img < w_column_limit) then
 		(* If white column *)
 			(Node(
 				tmp_x1, x1 -1, y1, y2,
@@ -195,9 +191,9 @@ let rec separate_y tree_list bounds limit left_tree_list =
 		(match (node1, node2) with
 		| (Empty, _) | (_, Empty) -> tree_list
 		| (Node(_, _, _, y2, _), Node(_, _, y1, _, _)) ->
-			let (u1, u2, v1, v2) = bounds in
 			if (y1 - y2 > limit)
 			then
+				let (u1, u2, v1, v2) = bounds in
 				Node(u1, u2, v1, y2, left_tree_list @ [node1])
 				:: separate_y
 					(node2 :: bro_list)
@@ -207,7 +203,7 @@ let rec separate_y tree_list bounds limit left_tree_list =
 			else
 				separate_y
 					(node2 :: bro_list)
-					(u1, u2, y1, v2)
+					bounds
 					limit
 					(left_tree_list @ [node2]))
 ;;
@@ -220,9 +216,9 @@ let rec separate_x tree_list bounds limit left_tree_list =
 		(match (node1, node2) with
 		| (Empty, _) | (_, Empty) -> tree_list
 		| (Node(_, x2, _, _, _), Node(x1, _, _, _, _)) ->
-			let (u1, u2, v1, v2) = bounds in
 			if (x1 - x2 > limit)
 			then
+				let (u1, u2, v1, v2) = bounds in
 				Node(u1, x2, v1, v2, left_tree_list @ [node1])
 				:: separate_x
 					(node2 :: bro_list)
@@ -232,7 +228,7 @@ let rec separate_x tree_list bounds limit left_tree_list =
 			else
 				separate_x
 					(node2 :: bro_list)
-					(x1, u2, v1, v2)
+					bounds
 					limit
 					(left_tree_list @ [node2]))
 ;;
@@ -314,8 +310,9 @@ let rec draw_leaf_rects tree_list img =
 (* Entry point *)
 let xy_cut img =
 	let (w, h) = Sdlt.get_dims img in
-	let order = 5 in
+	let order = 1 in
 	let cuts_tree = Node(0, w, 0, h, x_cut (0, w, 0, h) (-1) order img) in
 	let cuts_tree = it_tree (separate_xy, (function x -> x)) cuts_tree in
-	it_tree (crop_borders, del_son) cuts_tree
+	let cuts_tree = it_tree (crop_borders, del_son) cuts_tree in
+	draw_rects [cuts_tree] img (100, 100, 100);
 ;;
