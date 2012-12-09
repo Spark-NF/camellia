@@ -96,6 +96,3 @@ let geo_mmt img =
 						moments := ((float_of_int(x)**counter_x) +. (float_of_int(y)**counter_y)) :: !moments;
 						return_mmt img (y - 1, x - 1);
 						end;;
-						
-(* Implémentation des moments complexes (sous forme polynômiale complexe)
-Prend en paramètre un Sdlvideo.rect et renvoye une liste de moments *)
