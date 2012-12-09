@@ -45,15 +45,7 @@ let result_image =
 (* OCR *)
 let analyze_file file =
 	let img = Binarize.binarize file in
-	let angle = Skew.skew img in
-	let angle2 =
-		if angle > Sdlt._PI /. 4.0 then
-			Sdlt._PI /. 2.0 -. angle
-		else if angle < Sdlt._PI /. (-4.0) then
-			angle +. Sdlt._PI /. 2.0
-		else
-			angle in
-	let img = Skew.rotate img angle2 in
+	let img = Skew.rot img in
 	begin
 		let final_result = Cutter.xy_cut img in
 		let final_image = Cutter.draw_rects [final_result] img (255, 0, 0) in
