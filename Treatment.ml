@@ -85,13 +85,13 @@ let geo_mmt img =
 		let rec return_mmt img (w, h) = match (w, h) with
 			| (1, 1) | (0, 0) 	-> moments
 			| (y, x) when y = 1 -> begin
-						counter_x = !counter_x +. 1.;
+						counter_x := !counter_x +. 1.;
 						moments := ((x.**counter_x) + (y.**counter_y)) :: !moments;
 						return_mmt img y (x-1);
 						end
 			| (y, x) -> begin
-						counter_x = !counter_x +. 1.;
-						counter_y = !counter_y +. 1.;
+						counter_x := !counter_x +. 1.;
+						counter_y := !counter_y +. 1.;
 						moments := ((x.**counter_x) + (y.**counter_y)) :: !moments;
 						return_mmt img (y-1) (x-1);
 						end;;
