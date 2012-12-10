@@ -306,6 +306,14 @@ let rec draw_leaf_rects tree_list img =
 		| _ -> img
 ;;
 
+let rec get_list = function
+		| Node(x1, x2, y1, y2, []) :: tree_list2 ->
+			[(x1, x2, y1, y2)] @ get_list tree_list2
+		| Node(_, _, _, _, tree_list1) :: tree_list2 ->
+			get_list tree_list1 @ get_list tree_list2
+		| _ -> []
+;;
+
 let rec draw_rc nodes img deep =
 	let color = match deep with
 		| 0 -> (255, 0, 0)
