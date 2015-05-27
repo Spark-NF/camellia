@@ -4,9 +4,9 @@
 OpenCV face detector and recognizer.
 
 ## Authors
-* (Spark-NF)[https://github.com/Spark-NF]
-* (masternox)[https://github.com/masternox]
-* (lelimacon)[https://github.com/lelimacon]
+* [Spark-NF](https://github.com/Spark-NF)
+* [masternox](https://github.com/masternox)
+* [lelimacon](https://github.com/lelimacon)
 * Sébastien T.
 
 ## How to
