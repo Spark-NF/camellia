@@ -1,7 +1,7 @@
-# FaceDetector
+# Camellia
 
 ## About
-OpenCV face detector and recognizer.
+Optical character recognition program in OCaml for Linux. 
 
 ## Authors
 * [Spark-NF](https://github.com/Spark-NF)
