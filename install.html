@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>TCP - The Camellia Project</title>
+		<link rel="stylesheet" media="all" type="text/css" href="/css/style.css" />
+	</head>
+	<body>
+		<div id="wrapper">
+			<div id="header">
+				<header><a href="index.html"><img src="/img/camellia.png" alt="" id="logo" /></a></header>
+				<nav>
+					<ul>
+						<li><a href="/index.html">Accueil</a></li>
+						<li><a href="/download.html">Téléchargement</a></li>
+						<li class="current"><a href="/install.html">Installation</a></li>
+						<li class="last"><a href="/team.html">L'équipe</a></li>
+					</ul>
+				</nav>
+				<div class="clear"></div>
+			</div>
+			<section>
+				<article>
+					<p>
+						Pour compiler le projet, il vous faut :<br/>
+						- Les sources du projet<br/>
+						- OCaml<br/>
+						- SDL<br/>
+						- OCaml SDL<br/><br/>
+						Ensuite, déplacez-vous dans le dossier où se trouvent les sources, et éxecutez :<br/>
+					</p>
+					<div class="console">
+						tar -xjf camellia-s2.tar.bz2<br/>
+						cd camellia-s2<br/>
+						make
+					</div>
+					<p><br/>Pour utiliser Camellia sur une image "image.png", il faut faire :<br/></p>
+					<div class="console">
+						./camellia image.png
+					</div>
+					<p><br/>Sinon, vous pouvez simplement ouvrir Camellia et utiliser l'interface utilisateur, via la commande :<br/></p>
+					<div class="console">
+						./camellia
+					</div>
+				</article>
+			</section>
+			<footer>Le projet Camellia est distribué sous <a href="http://www.apache.org/licenses/LICENSE-2.0.html">license Apache 2.0</a></footer>
+		</div>
+	</body>
+</html>

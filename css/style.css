@@ -1,0 +1,27 @@
+* { margin: 0; padding: 0; }
+body { background: #ccc url('/img/main-bg.png') repeat; font-family: Arial; }
+#header { background: #333 url('/img/title-bg.png') repeat; color: #fff; border-bottom: 1px solid #000; }
+#header a { color: #fff; text-decoration: none; }
+#header a:hover { text-decoration: underline; }
+#header a:active img { margin-top: 2px; margin-left: 2px; margin-bottom: -2px; }
+#header header { text-align: center; padding: 30px 100px 30px 100px; background: url('/img/beta.png') no-repeat; }
+#header nav ul { list-style-type: none; margin: 0 auto 0 auto; width: 505px; }
+#header nav li { float: left; padding: 2px 7px 2px 7px; margin: 0 13px 0 13px; font-size: 18px; margin-bottom: 20px; }
+#header nav li:hover { border-bottom: 1px solid #fff; }
+#header nav li.current { border-bottom: 2px solid #fff; }
+#header nav li a { color: #fff; }
+#header nav li a:hover { text-decoration: none; }
+section { width: 650px; margin: 30px auto 20px auto; padding: 10px; text-align: justify; }
+section a { color: #000; text-decoration: none; }
+section a:hover { text-decoration: underline; }
+footer { font-size: 0.8em; text-align: center; margin-top: 50px; margin-bottom: 20px; }
+footer a { color: #000; text-decoration: none; }
+footer a:hover { text-decoration: underline; }
+.clear { clear: both; }
+.avatar { width:100px; height:100px; margin: 5px 10px 5px 0; border: 1px solid #000; border-radius: 15px; box-shadow: 0 0 5px #000; }
+.member { font-size: 1.2em; color: #222; display: inline-block; margin-bottom: 8px; }
+.rank { font-size: 0.9em; font-style: italic; margin: 0 0 10px 14px; display: inline-block; }
+.name { font-variant: small-caps; }
+.download { display: block; width: 192px; height: 29px; padding: 17px 20px 17px 20px; font-size: 24px; background-image: url('/img/download_off.png'); color: #fff; margin: auto; }
+.download:hover { background-image: url('/img/download_on.png'); text-decoration: none !important; color: #fff; }
+.console { background-color: #333; border: 1px solid #000; color: #fff; padding: 7px 12px 7px 12px; border-radius: 10px; margin-top: 10px; box-shadow: 0 0 7px #222; }
